@@ -6,6 +6,17 @@
 @layer base {
     
 
+    body{
+        @apply  bg-black backgroundImage
+    }
+
+    h1{
+        @apply text-2xl text-gray-300 font-bold
+    }
+    h2{
+        @apply text-xl text-gray-200 font-bold
+    }
+
     .tarot{
         @apply w-28 h-40 border-8 border-quint overflow-hidden rounded-md shadow-md
          hover:border-terz
@@ -35,14 +46,20 @@
     }
     .act-btn{
         @apply  text-slate-400 bg-gradient-to-r from-blue-700 to-pink-600 hover:text-terz rounded-md p-2
-                hover:from-indigo-500 hover:to-pink-500 hover:scale-105 transition-all duration-500
+                hover:from-indigo-500 hover:to-pink-500 hover:scale-105 transition-all duration-500 border border-red-950
     
+    }
+
+    
+    .app{
+        @apply h-screen w-full bg-black flex 
+    }
+
+    .tarot-page{
+        @apply w-full justify-center
     }
 }
 
-.tarot-page{
-    max-width: 100vw;
-}
 
 /* css che nasconde la scrollbar */
 
@@ -63,18 +80,9 @@
     border-radius: 5px; /* Bordi arrotondati */
   }
 
-  .app{
-    @apply h-full bg-black
-  }
 
 
 /* Esempio di margine negativo */
-
- .tarot-page{
-    height: 100vh;
-    overflow-y: scroll;
-}
-
 
 
  @media (max-width: 640px){

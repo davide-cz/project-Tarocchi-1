@@ -84,102 +84,109 @@ const closeModal = (index) => {
 
     return (
         <>
-            <div className="tarot-page  tarot-page p-4 h-max overflow-scroll">
-                <button className="act-btn flex m-auto"
-                    onClick={()=>{
-                        mischiaMazzo();
-                        setIsCentered(true)
-                }}>mischia mazzo</button>
+            <div className="mt-20 tarot-page  m-auto p-4 flex flex-col w-full">
+                {!showResult &&
                 
-                <button className={`act-btn flex mt-2 mx-auto opacity-0  ${isCentered? 'opacity-100':'opacity-0'}`}
-                    disabled={!isCentered}
-                    onClick={()=>{
-                        setIsCentered(false)
-                }}>distribuisci carte</button>
-            
-                {mazzoMischiato &&  
-                    <div className={`cards-container transition-all animate-fade
-                    ${isCentered ? 'relative' : '-space-x-20 '}`}>
-                        {mazzoMischiato.map(((card,i)=>{
-                            return(
-                                
-                                    <div
-                                        className={`tarot hover:brightness-75 flex-shrink-0 pile duration-500 transition-all 
-                                        ${isCentered ? 'absolute animate-fade' :  'relative animate-fade hover:-translate-y-5' }  
-                                        ${isSelected[i]? 'brightness-50' : ''}
-                                       
-                                        `}
-                                        key={`card-${i}`}
-                                    >
-                                        <Tarot
-                                            imgURL={dorso}
-                                        />
-                                        <button
-                                            disabled={isSelected[i] || isCentered || cartePescate.length===3 }
-                                            className={`choosen-card-button absolute p-40 -ml-14 curs
-                                            bg-transparent border-bg-transparent 
-                                            hover:bg-transparent hover:border-bg-transparent
-                                            `} 
-                                            onClick={()=>{
-                                                chooseACard(card)
-                                                disableCard(i)
-                                            }}
-                                        >
-                                        </button>
-                                    </div>
-                                
-                            )
-                        }))}
+                    <div className="transition-all animate-fade h-[600px] duration-500 ">
+                        
+                        <button className="act-btn flex m-auto"
+                            onClick={()=>{
+                                mischiaMazzo();
+                                setIsCentered(true)
+                        }}>mischia mazzo</button>
+                        
+                        <button className={`act-btn flex mt-2 mx-auto opacity-0  ${isCentered? 'opacity-100':'opacity-0'}`}
+                            disabled={!isCentered}
+                            onClick={()=>{
+                                setIsCentered(false)
+                        }}>distribuisci carte</button>
+                    
+                        {mazzoMischiato &&  
+                            <div className={`cards-container transition-all animate-fade duration-500
+                            ${isCentered ? 'relative' : '-space-x-20 '}`}>
+                                {mazzoMischiato.map(((card,i)=>{
+                                    return(
+                                        
+                                            <div
+                                                className={`tarot hover:brightness-75 flex-shrink-0 pile duration-500 transition-all 
+                                                ${isCentered ? 'absolute animate-fade' :  'relative animate-fade hover:-translate-y-5' }  
+                                                ${isSelected[i]? 'brightness-50' : ''}
+                                            
+                                                `}
+                                                key={`card-${i}`}
+                                            >
+                                                <Tarot
+                                                    imgURL={dorso}
+                                                />
+                                                <button
+                                                    disabled={isSelected[i] || isCentered || cartePescate.length===3 }
+                                                    className={`choosen-card-button absolute p-40 -ml-14 curs
+                                                    bg-transparent border-bg-transparent 
+                                                    hover:bg-transparent hover:border-bg-transparent
+                                                    `} 
+                                                    onClick={()=>{
+                                                        chooseACard(card)
+                                                        disableCard(i)
+                                                    }}
+                                                >
+                                                </button>
+                                            </div>
+                                        
+                                    )
+                                }))}
+                            </div>
+                        }
+                        <button className={`act-btn flex mx-auto my-4  opacity-0  ${cartePescate.length===3 ? 'duration-1000 opacity-100' : 'opacity-0 duration-0'}`}
+                            onClick={()=>{
+                                setShowResult(true)
+                            }}
+                        >Rivela Carte</button>
+                        
                     </div>
+
                 }
-                <button className={`act-btn flex mx-auto my-4  opacity-0  ${cartePescate.length===3 ? 'duration-1000 opacity-100' : 'opacity-0 duration-0'}`}
-                    onClick={()=>{
-                        setShowResult(true)
-                    }}
-                >Rivela Carte</button>
-               
-                <div className="cards-container results flex justify-around animate-fade">
+                <div className={`cards-container results transition-all h-[300px] flex justify-around duration-500 opacity-100 ${showResult ? ' duration-500 opacity-100':'  duration-500 opacity-0'}`}>
                     {cartePescate.map((card,i)=>{
-                            return(
-                                <div className={`w-28 transition-opacity `} 
-                                        key={`choosen${card.name}${i}`}>
-                                    <div className={`tarot selected-card animate-fade scale-105 transition-all w-28 m-auto
-                                                     ${card.straight? '' : 'rotate-180'}`}
-                                    >
-                                        <Tarot
-                                            ind={card.number}
-                                            cardValue={card.name}
-                                            imgURL={showResult? card.urlImg : dorso}
-                                        />
-                                    </div>
-                                        {showResult &&
-                                        <div className="my-4" >
-                                            <button
-                                            onClick={()=>{openModal(i)}}
-                                            className="act-btn mt-2 text-xs font-semibold w-3/4"
-                                            >mostra significato</button>
-                                            <SingleTarot
-                                                straightLecture={card.straightLecture}
-                                                number={card.number}
-                                                name={card.name}
-                                                reverseLecture={card.reverseLecture}
-                                                straight={card.straight}
-                                                urlImg={card.urlImg}
-                                                isOpen={isOpen[i]}
-                                                closeModal={() => closeModal(i)}
-                                            />
-                                        </div>
-                                        }
+                        return(
+                            <div className={`w-28 transition-opacity `} 
+                                    key={`choosen${card.name}${i}`}>
+                                <div className={`tarot selected-card animate-fade scale-105 transition-all w-28 m-auto
+                                                    ${card.straight? '' : 'rotate-180'}`}
+                                >
+                                    <Tarot
+                                        ind={card.number}
+                                        cardValue={card.name}
+                                        imgURL={showResult? card.urlImg : dorso}
+                                    />
+                                </div>
                                     {showResult &&
-                                    <div>
-                                        <h4 
-                                            className="flex justify-center text-center text-stone-200 w-auto">{card.number} {card.name}</h4>
+                                    <div className="my-4" >
+                                        <button
+                                        onClick={()=>{openModal(i)}}
+                                        className="act-btn mt-2 text-xs font-semibold w-3/4"
+                                        >mostra significato</button>
+                                        <SingleTarot
+                                            straightLecture={card.straightLecture}
+                                            number={card.number}
+                                            name={card.name}
+                                            reverseLecture={card.reverseLecture}
+                                            straight={card.straight}
+                                            urlImg={card.urlImg}
+                                            isOpen={isOpen[i]}
+                                            closeModal={() => closeModal(i)}
+                                        />
                                     </div>
                                     }
+                                {showResult &&
+                                <div>
+                                    <h4 
+                                        className="flex justify-center text-center text-stone-200 w-auto">{card.number} {card.name}</h4>
                                 </div>
-                            )
-                        })}
-                    </div>
+                                }
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         </>
     )
