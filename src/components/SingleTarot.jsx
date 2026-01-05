@@ -26,7 +26,7 @@ export default function ({isOpen, closeModal, straightLecture, number, name, rev
                             alt="card-image" />
                     </figure>
                     <div className="p-4">
-                        <h1>{number} - {name}</h1>
+                        <h1 className="text-gray-600 pb-4" >{number} - {name}</h1>
                         <p>{straight===true ? straightLecture : reverseLecture}</p>
                     </div>
                     <button className="act-btn font-bold absolute top-1 right-1"

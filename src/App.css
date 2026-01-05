@@ -56,7 +56,7 @@
     }
 
     .tarot-page{
-        @apply w-full justify-center
+        @apply w-full 
     }
 }
 

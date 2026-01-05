@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <div className='app backgroundImage  '>      
+      <div className='app backgroundImage flex justify-center'>      
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/tarots' element={<TarotPage/>}/>

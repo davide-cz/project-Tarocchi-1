@@ -2,12 +2,13 @@ import { useState } from "react"
 import tarots from '../assets/tarot.json'
 import Tarot from "./Tarot"
 import dorso from "/tarots/dorso.jpg"
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import SingleTarot from "./SingleTarot";
 
 
 export default function (){
 
+    let navigate = useNavigate();
 
     const [mazzoOrdinato,setMazzoOrdinato]=useState(tarots);
     const [mazzoMischiato,setMazzoMischiato]=useState([]);
@@ -84,10 +85,10 @@ const closeModal = (index) => {
 
     return (
         <>
-            <div className="mt-20 tarot-page  m-auto p-4 flex flex-col w-full">
+            <div className=" tarot-page m-auto p-4 flex flex-col w-full h-screen overflow-y-scroll">
                 {!showResult &&
                 
-                    <div className="transition-all animate-fade h-[600px] duration-500 ">
+                    <div className="transition-all pt-12  animate-fade duration-500 "> 
                         
                         <button className="act-btn flex m-auto"
                             onClick={()=>{
@@ -108,7 +109,7 @@ const closeModal = (index) => {
                                     return(
                                         
                                             <div
-                                                className={`tarot hover:brightness-75 flex-shrink-0 pile duration-500 transition-all 
+                                                className={`tarot hover:brightness-75 pile duration-500 transition-all 
                                                 ${isCentered ? 'absolute animate-fade' :  'relative animate-fade hover:-translate-y-5' }  
                                                 ${isSelected[i]? 'brightness-50' : ''}
                                             
@@ -145,7 +146,7 @@ const closeModal = (index) => {
                     </div>
 
                 }
-                <div className={`cards-container results transition-all h-[300px] flex justify-around duration-500 opacity-100 ${showResult ? ' duration-500 opacity-100':'  duration-500 opacity-0'}`}>
+                <div className={`cards-container results transition-all pb-8 flex justify-around duration-500 opacity-100 ${showResult ? ' duration-500 opacity-100 m-auto':'  duration-500 opacity-0'}`}>
                     {cartePescate.map((card,i)=>{
                         return(
                             <div className={`w-28 transition-opacity `} 
@@ -187,6 +188,12 @@ const closeModal = (index) => {
                         )
                     })}
                 </div>
+                    {showResult && 
+                        <button className="act-btn mb-12 mx-auto w-1/3"
+                            onClick={()=>{mischiaMazzo();
+                                            setIsCentered(true)}}
+                        >Nuova lettura</button>
+                    }
             </div>
         </>
     )
